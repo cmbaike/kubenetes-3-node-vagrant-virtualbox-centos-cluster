@@ -35,8 +35,10 @@ def provision_kubernetes_node(node)
   setup_kubernetes node
   # Setup cluster
   create_cluster node
+  # Install istio
+  node.vm.provision "setup-ssh", :type => "shell", :path => "centos/vagrant/install-istio.sh"
   # Setup ssh
-  node.vm.provision "setup-ssh", :type => "shell", :path => "centos/vagrant/ssh.sh"
+  node.vm.provision "install Istio", :type => "shell", :path => "centos/vagrant/ssh.sh"
   # Setup kubectl auto-complete
   node.vm.provision "auto-complete", :type => "shell", :path => "centos/vagrant/kubectl-autocomplete.sh"
 end
@@ -66,8 +68,8 @@ Vagrant.configure("2") do |config|
     # Name shown in the GUI
     node.vm.provider "virtualbox" do |vb|
       vb.name = "controller-node"
-      vb.memory = 2048
-      vb.cpus = 2
+      vb.memory = 4096
+      vb.cpus = 3
     end
     node.vm.hostname = "controller-node"
     node.vm.network :private_network, ip: IP_NW + "#{MASTER_IP_START}"
@@ -76,6 +78,7 @@ Vagrant.configure("2") do |config|
     node.trigger.after :up do |trigger|
       trigger.info = "Copying join command to host"
       trigger.run = {path: "./centos/vagrant/copy-join-command-to-host.sh"}
+      trigger.info = "Configure kubectl autocomplete"
       trigger.run_remote = {path: "./centos/vagrant/kubectl-autocomplete.sh"}
     end
   end
@@ -96,6 +99,7 @@ Vagrant.configure("2") do |config|
       node.trigger.after :up do |trigger|
         trigger.info = "Join worker node to cluster"
         trigger.run_remote = {path: "./centos/vagrant/join-command.sh"}
+        trigger.info = "Configure kubectl autocomplete"
         trigger.run_remote = {path: "./centos/vagrant/kubectl-autocomplete.sh"}
       end
     end

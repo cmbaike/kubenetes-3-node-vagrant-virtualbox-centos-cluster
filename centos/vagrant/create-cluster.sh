@@ -8,7 +8,6 @@ then
   kubectl --kubeconfig /etc/kubernetes/admin.conf \
     apply -f "https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s-1.11.yaml"
 
-  echo "Switching user to vagrant"
   mkdir -p /home/vagrant/.kube
   cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
   chown vagrant:vagrant /home/vagrant/.kube/config

@@ -1,3 +1,5 @@
+set -ex
+
 yum install bash-completion
 
 source /usr/share/bash-completion/bash_completion
