@@ -2,10 +2,6 @@
 ## 3 Node Centos Cluster
 
 # Prerequisites
-
-VirtualBox: Download and install virtualbox https://www.virtualbox.org/wiki/Downloads
-Vagrant: Download and install vagrant: https://developer.hashicorp.com/vagrant/install
-
 ## VM Hardware Requirements
 
 8 GB of RAM
