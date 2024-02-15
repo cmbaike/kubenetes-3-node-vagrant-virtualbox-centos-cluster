@@ -1,5 +1,6 @@
 # vagrant-virtualbox-centos-cluster
-## 3 Node Centos Cluster
+## 3 Node Kuberbetes Cluster configured with Centos
+
 
 # Prerequisites
 ## VM Hardware Requirements
