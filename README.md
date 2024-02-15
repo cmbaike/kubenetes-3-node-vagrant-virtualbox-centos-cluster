@@ -3,7 +3,8 @@
 
 # Prerequisites
 
-If you have an M-series (Apple Silicon) Mac, you cannot run VirtualBox. Please instead see our [Apple Silicon](../../apple-silicon/) guide.
+VirtualBox: Download and install virtualbox https://www.virtualbox.org/wiki/Downloads
+Vagrant: Download and install vagrant: https://developer.hashicorp.com/vagrant/install
 
 ## VM Hardware Requirements
 

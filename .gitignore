@@ -1,2 +1,2 @@
 .vagrant
-./centos/vagrant/join-command.sh
+centos/vagrant/join-command.sh

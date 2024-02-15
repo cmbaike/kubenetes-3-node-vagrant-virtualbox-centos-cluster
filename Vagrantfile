@@ -37,6 +37,8 @@ def provision_kubernetes_node(node)
   create_cluster node
   # Setup ssh
   node.vm.provision "setup-ssh", :type => "shell", :path => "centos/vagrant/ssh.sh"
+  # Setup kubectl auto-complete
+  node.vm.provision "auto-complete", :type => "shell", :path => "centos/vagrant/kubectl-autocomplete.sh"
 end
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -74,6 +76,7 @@ Vagrant.configure("2") do |config|
     node.trigger.after :up do |trigger|
       trigger.info = "Copying join command to host"
       trigger.run = {path: "./centos/vagrant/copy-join-command-to-host.sh"}
+      trigger.run_remote = {path: "./centos/vagrant/kubectl-autocomplete.sh"}
     end
   end
 
@@ -93,6 +96,7 @@ Vagrant.configure("2") do |config|
       node.trigger.after :up do |trigger|
         trigger.info = "Join worker node to cluster"
         trigger.run_remote = {path: "./centos/vagrant/join-command.sh"}
+        trigger.run_remote = {path: "./centos/vagrant/kubectl-autocomplete.sh"}
       end
     end
   end
