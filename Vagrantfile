@@ -35,8 +35,6 @@ def provision_kubernetes_node(node)
   setup_kubernetes node
   # Setup cluster
   create_cluster node
-  # Install istio
-  node.vm.provision "setup-ssh", :type => "shell", :path => "centos/vagrant/install-istio.sh"
   # Setup ssh
   node.vm.provision "install Istio", :type => "shell", :path => "centos/vagrant/ssh.sh"
   # Setup kubectl auto-complete
@@ -63,7 +61,7 @@ Vagrant.configure("2") do |config|
   # `vagrant box outdated`. This is not recommended.
   config.vm.box_check_update = false
 
-  # Provision Master Nodes
+  #Provision Master Nodes
   config.vm.define "controller-node" do |node|
     # Name shown in the GUI
     node.vm.provider "virtualbox" do |vb|
