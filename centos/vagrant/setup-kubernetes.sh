@@ -1,5 +1,4 @@
 {
-
 # Configure Network Requirement for container runtime
 cat <<EOF > /etc/modules-load.d/k8s.conf
 overlay

@@ -31,3 +31,10 @@ Download and Install [Vagrant](https://www.vagrantup.com/) on your platform.
 - Centos
 - Linux
 - macOS (x86 only, not M1)
+
+## Istio
+
+If you want to use Istio to simplify observability, tarffic management, security and policy with a the leading service mesh.
+
+  - $ vagrant ssh controller-node
+  - $ sudo /vagrant/centos/vagrant/install-istio.sh  

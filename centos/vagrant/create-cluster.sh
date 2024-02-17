@@ -1,4 +1,6 @@
-if [[ "$HOSTNAME" = "controller-node" ]]
+set -ex
+echo "Instance $HOSTNAME"
+if [[ "$HOSTNAME" = *controller* ]]
 then
   POD_CIDR=10.244.0.0/16
   SERVICE_CIDR=10.96.0.0/16

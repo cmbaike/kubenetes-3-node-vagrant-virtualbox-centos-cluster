@@ -27,18 +27,28 @@ def create_cluster(node)
   node.vm.provision "create-cluster", :type => "shell", :path => "centos/vagrant/create-cluster.sh"
 end
 
+def kubectl_autocomplete(node)
+  # Setup kubectl autocomplete
+  node.vm.provision "create-cluster", :type => "shell", :path => "centos/vagrant/kubectl-autocomplete.sh"
+end
+
+def setup_ssh(node)
+   # Setup ssh
+  node.vm.provision "setup-ssh", :type => "shell", :path => "centos/vagrant/ssh.sh"
+end
+
 # Runs provisioning steps that are required by masters and workers
 def provision_kubernetes_node(node)
   # Setup host
-  setup_hosts node
+   setup_hosts node
   # Setup kubernetes
-  setup_kubernetes node
+   setup_kubernetes node
   # Setup cluster
-  create_cluster node
+   create_cluster node
   # Setup ssh
-  node.vm.provision "install Istio", :type => "shell", :path => "centos/vagrant/ssh.sh"
-  # Setup kubectl auto-complete
-  node.vm.provision "auto-complete", :type => "shell", :path => "centos/vagrant/kubectl-autocomplete.sh"
+   setup_ssh node
+  # Setup kubectl autocomplete
+  #  kubectl_autocomplete node
 end
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -76,19 +86,21 @@ Vagrant.configure("2") do |config|
     node.trigger.after :up do |trigger|
       trigger.info = "Copying join command to host"
       trigger.run = {path: "./centos/vagrant/copy-join-command-to-host.sh"}
-      trigger.info = "Configure kubectl autocomplete"
-      trigger.run_remote = {path: "./centos/vagrant/kubectl-autocomplete.sh"}
+    end
+    node.trigger.after :up do |trigger_kubectl_auto_complete|
+      trigger_kubectl_auto_complete.info = "auto-complete"
+      trigger_kubectl_auto_complete.run_remote = {path: "./centos/vagrant/kubectl-autocomplete.sh"}
     end
   end
 
 
-  #Provision Worker Nodes
+  #Provision Worker Node
   (1..NUM_WORKER_NODE).each do |i|
     config.vm.define "worker-node0#{i}" do |node|
       node.vm.provider "virtualbox" do |vb|
         vb.name = "worker-node0#{i}"
-        vb.memory = 1024
-        vb.cpus = 1
+        vb.memory = 4096
+        vb.cpus = 3
       end
       node.vm.hostname = "worker-node0#{i}"
       node.vm.network :private_network, ip: IP_NW + "#{NODE_IP_START + i}"
@@ -97,9 +109,9 @@ Vagrant.configure("2") do |config|
       node.trigger.after :up do |trigger|
         trigger.info = "Join worker node to cluster"
         trigger.run_remote = {path: "./centos/vagrant/join-command.sh"}
-        trigger.info = "Configure kubectl autocomplete"
-        trigger.run_remote = {path: "./centos/vagrant/kubectl-autocomplete.sh"}
       end
     end
   end
+
+
  end
