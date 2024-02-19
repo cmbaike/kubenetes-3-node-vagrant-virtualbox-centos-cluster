@@ -13,11 +13,13 @@ then
 
  chown -R vagrant:vagrant /opt/istio-1.20.3
 
- echo export PATH=/opt/istio-${ISTIO_VERSION}/bin:$PATH >> /home/vagrant/.bashrc
+ echo export PATH=/opt/istio-${ISTIO_VERSION}/bin:$PATH >> ~/.bashrc
 
- source /home/vagrant/.bashrc
+ source ~/.bashrc
 
  istioctl install --kubeconfig /etc/kubernetes/admin.conf -y
 
+ # Configure automatic Envoy proxy injection
  kubectl label namespace default istio-injection=enabled --kubeconfig /etc/kubernetes/admin.conf
-fi 
+
+fi

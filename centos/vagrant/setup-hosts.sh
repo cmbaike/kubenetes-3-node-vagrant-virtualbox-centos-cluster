@@ -17,3 +17,4 @@ echo "${ADDRESS} ${HOSTNAME}" | tee /etc/hosts
 # Expoert internal IP as an environment variable
 echo "INTERNAL_IP=${ADDRESS}" >> /etc/environment
 yum install wget -y
+yum install git -y

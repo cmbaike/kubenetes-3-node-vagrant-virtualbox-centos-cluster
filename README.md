@@ -37,4 +37,4 @@ Download and Install [Vagrant](https://www.vagrantup.com/) on your platform.
 If you want to use Istio to simplify observability, tarffic management, security and policy with a the leading service mesh.
 
   - $ vagrant ssh controller-node
-  - $ sudo /vagrant/centos/vagrant/install-istio.sh  
+  - $ sudo /vagrant/centos/vagrant/install-istio.sh

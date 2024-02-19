@@ -50,7 +50,6 @@ systemctl enable kubelet
 systemctl start kubelet
 
 
-
 # Disable SELinux to allow containers to access the host filesystem
 
 setenforce 0
