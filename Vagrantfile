@@ -83,6 +83,7 @@ Vagrant.configure("2") do |config|
     node.vm.network :private_network, ip: IP_NW + "#{MASTER_IP_START}"
     node.vm.network "forwarded_port", guest: 22, host: "#{2710}"
     provision_kubernetes_node node
+    node.vm.provision "install-helm", :type => "shell", :path => "centos/vagrant/install-helm.sh"
     node.trigger.after :up do |trigger|
       trigger.info = "Copying join command to host"
       trigger.run = {path: "./centos/vagrant/copy-join-command-to-host.sh"}

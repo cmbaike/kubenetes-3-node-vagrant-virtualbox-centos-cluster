@@ -16,5 +16,13 @@ echo "${ADDRESS} ${HOSTNAME}" | tee /etc/hosts
 
 # Expoert internal IP as an environment variable
 echo "INTERNAL_IP=${ADDRESS}" >> /etc/environment
+
+# Install wget
 yum install wget -y
+
+# Install git
 yum install git -y
+
+# Expose /usr/local/bin
+echo export PATH=/usr/local/bin:$PATH >> /home/vagrant/.bashrc
+
