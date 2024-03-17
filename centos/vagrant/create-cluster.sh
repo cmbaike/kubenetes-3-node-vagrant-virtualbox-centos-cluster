@@ -7,10 +7,10 @@ then
   kubeadm init --pod-network-cidr $POD_CIDR --apiserver-advertise-address $INTERNAL_IP
 
   kubectl --kubeconfig /etc/kubernetes/admin.conf \
-    apply -f "https://raw.githubusercontent.com/projectcalico/calico/v3.27.2/manifests/tigera-operator.yaml"
+    create -f "https://raw.githubusercontent.com/projectcalico/calico/v3.27.2/manifests/tigera-operator.yaml"
 
   kubectl --kubeconfig /etc/kubernetes/admin.conf \
-    apply -f "https://raw.githubusercontent.com/projectcalico/calico/v3.27.2/manifests/custom-resources.yaml"
+    create -f "https://raw.githubusercontent.com/projectcalico/calico/v3.27.2/manifests/custom-resources.yaml"
 
   mkdir -p /home/vagrant/.kube
   cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
