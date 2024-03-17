@@ -4,7 +4,7 @@ if [[ "$HOSTNAME" = *controller* ]]
 then
   POD_CIDR=192.168.0.0/16
 
-  kubeadm init --pod-network-cidr $POD_CIDR --service-cidr $SERVICE_CIDR --apiserver-advertise-address $INTERNAL_IP
+  kubeadm init --pod-network-cidr $POD_CIDR --apiserver-advertise-address $INTERNAL_IP
 
   kubectl --kubeconfig /etc/kubernetes/admin.conf \
     apply -f "https://raw.githubusercontent.com/projectcalico/calico/v3.27.2/manifests/tigera-operator.yaml"
